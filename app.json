@@ -1,0 +1,27 @@
+{
+  "name": "AI Travel Planner",
+  "description": "An AI-powered travel planning assistant developed using IBM Granite and IBM Cloud services. The application generates personalized travel itineraries, recommends destinations, estimates budgets, and provides travel tips based on user preferences.",
+  "version": "1.0.0",
+  "author": "Sourav Kumar",
+  "platform": "IBM Cloud",
+  "services": [
+    "IBM watsonx.ai",
+    "IBM Granite",
+    "IBM Cloud API"
+  ],
+  "frontend": {
+    "technology": "HTML, CSS, JavaScript"
+  },
+  "backend": {
+    "technology": "Node.js, Express.js"
+  },
+  "features": [
+    "AI-generated travel itinerary",
+    "Budget estimation",
+    "Destination recommendations",
+    "Travel tips",
+    "Interactive user interface"
+  ],
+  "repository": "https://github.com/Sourav2004-max/AI-Travel-Planner",
+  "license": "MIT"
+}
