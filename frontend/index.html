@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Travel Planner — Powered by IBM watsonx.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">✈️</span>
+        <span class="logo-text">AI <strong>Travel Planner</strong></span>
+      </div>
+      <div class="header-badges">
+        <span class="badge" id="statusBadge">⚪ Checking…</span>
+        <span class="badge badge--ibm">IBM watsonx.ai</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── HERO ──────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Plan Your Perfect Trip<br /><span class="hero-accent">with AI</span></h1>
+      <p class="hero-sub">
+        Describe your dream destination and let IBM Granite AI craft a
+        personalised day-by-day itinerary, budget breakdown, and travel tips.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── MAIN ──────────────────────────────────────────────────────────── -->
+  <main class="main-wrap">
+
+    <!-- Step Wizard -->
+    <div class="steps-bar" id="stepsBar">
+      <div class="step active" data-step="1"><span class="step-num">1</span> Destination</div>
+      <div class="step-divider"></div>
+      <div class="step" data-step="2"><span class="step-num">2</span> Preferences</div>
+      <div class="step-divider"></div>
+      <div class="step" data-step="3"><span class="step-num">3</span> Your Plan</div>
+    </div>
+
+    <!-- ── STEP 1: Destination ─────────────────────────────────────── -->
+    <div class="card wizard-step" id="step1">
+      <h2 class="card-title">Where do you want to go?</h2>
+      <p class="card-subtitle">Enter a city, country, or region — or ask anything travel-related.</p>
+
+      <div class="form-group">
+        <label for="destination" class="form-label">Destination</label>
+        <input
+          id="destination"
+          type="text"
+          class="form-input"
+          placeholder="e.g. Tokyo, Japan  •  Amalfi Coast  •  New York City"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="days" class="form-label">Trip Duration (days)</label>
+          <input id="days" type="number" class="form-input" value="5" min="1" max="30" />
+        </div>
+        <div class="form-group">
+          <label for="travelStyle" class="form-label">Travel Style</label>
+          <select id="travelStyle" class="form-input form-select">
+            <option value="solo">Solo Traveller</option>
+            <option value="couple">Couple</option>
+            <option value="family">Family</option>
+            <option value="group">Group of Friends</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn--primary btn--full" id="toStep2Btn">
+        Next: Preferences →
+      </button>
+    </div>
+
+    <!-- ── STEP 2: Preferences ────────────────────────────────────── -->
+    <div class="card wizard-step hidden" id="step2">
+      <h2 class="card-title">Customise Your Experience</h2>
+      <p class="card-subtitle">Tell us your interests and budget so we can tailor the plan.</p>
+
+      <div class="form-group">
+        <label class="form-label">Interests <span class="form-hint">(select all that apply)</span></label>
+        <div class="chip-grid" id="interestChips">
+          <button class="chip" data-value="culture">🏛️ Culture</button>
+          <button class="chip" data-value="food">🍜 Food & Dining</button>
+          <button class="chip" data-value="adventure">🧗 Adventure</button>
+          <button class="chip" data-value="nature">🌿 Nature</button>
+          <button class="chip" data-value="beaches">🏖️ Beaches</button>
+          <button class="chip" data-value="shopping">🛍️ Shopping</button>
+          <button class="chip" data-value="nightlife">🎵 Nightlife</button>
+          <button class="chip" data-value="history">🏰 History</button>
+          <button class="chip" data-value="art">🎨 Art &amp; Museums</button>
+          <button class="chip" data-value="wellness">🧘 Wellness &amp; Spa</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="budget" class="form-label">Budget Level</label>
+        <div class="budget-cards" id="budgetCards">
+          <label class="budget-card" data-value="budget">
+            <input type="radio" name="budget" value="budget" />
+            <span class="budget-icon">🪙</span>
+            <span class="budget-name">Budget</span>
+            <span class="budget-desc">Hostels, street food, free activities</span>
+          </label>
+          <label class="budget-card selected" data-value="moderate">
+            <input type="radio" name="budget" value="moderate" checked />
+            <span class="budget-icon">💳</span>
+            <span class="budget-name">Moderate</span>
+            <span class="budget-desc">Mid-range hotels, local restaurants</span>
+          </label>
+          <label class="budget-card" data-value="luxury">
+            <input type="radio" name="budget" value="luxury" />
+            <span class="budget-icon">💎</span>
+            <span class="budget-name">Luxury</span>
+            <span class="budget-desc">5-star hotels, fine dining, private tours</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="freeMessage" class="form-label">
+          Anything else? <span class="form-hint">(optional — override everything above)</span>
+        </label>
+        <textarea
+          id="freeMessage"
+          class="form-input form-textarea"
+          placeholder="e.g. I'm a vegetarian, avoid tourist traps, prefer hidden gems…"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn--ghost" id="toStep1Btn">← Back</button>
+        <button class="btn btn--primary" id="generateBtn">
+          <span id="generateBtnText">🤖 Generate My Plan</span>
+          <span class="spinner hidden" id="generateSpinner"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Results ────────────────────────────────────────── -->
+    <div class="card wizard-step hidden" id="step3">
+      <div class="result-header">
+        <div>
+          <h2 class="card-title" id="resultTitle">Your Travel Plan</h2>
+          <p class="card-subtitle" id="resultSubtitle"></p>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn--ghost btn--sm" id="copyBtn" title="Copy to clipboard">📋 Copy</button>
+          <button class="btn btn--ghost btn--sm" id="newPlanBtn">✨ New Plan</button>
+        </div>
+      </div>
+
+      <div class="ai-badge" id="aiBadge"></div>
+
+      <!-- Result rendered here -->
+      <div class="result-body" id="resultBody"></div>
+    </div>
+
+    <!-- ── FREE CHAT ──────────────────────────────────────────────── -->
+    <div class="card chat-card">
+      <h2 class="card-title">💬 Ask the AI Anything</h2>
+      <p class="card-subtitle">Have a follow-up question? Ask about visa requirements, packing, local customs…</p>
+      <div class="chat-box" id="chatBox"></div>
+      <div class="chat-input-row">
+        <input
+          id="chatInput"
+          type="text"
+          class="form-input"
+          placeholder="Ask a travel question…"
+        />
+        <button class="btn btn--primary" id="chatSendBtn">Send</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>Built with ❤️ using <strong>IBM watsonx.ai (Granite 3.3)</strong> · <a href="https://cloud.ibm.com/watsonx" target="_blank" rel="noopener">Get your API key</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
